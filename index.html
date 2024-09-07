@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,7 +47,10 @@
   <body
     class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text font-pixel"
   >
-    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div
+      id="top"
+      class="min-h-screen flex flex-col items-center justify-center p-4"
+    >
       <h1 class="text-4xl sm:text-6xl mb-8 text-center">EatElo</h1>
       <nav class="w-full max-w-lg">
         <div
@@ -78,6 +81,15 @@
     >
       <h2 class="text-2xl sm:text-4xl">Contribute</h2>
     </section>
+    <div class="fixed bottom-4 left-0 right-0 flex justify-center">
+      <button
+        id="backToTop"
+        class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded-full shadow-lg hover:opacity-80 transition-opacity duration-300 hidden"
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
+    </div>
 
     <script>
       const themeToggle = document.getElementById("themeToggle");
@@ -96,6 +108,23 @@
           document.querySelector(this.getAttribute("href")).scrollIntoView({
             behavior: "smooth",
           });
+        });
+      });
+
+      // Show/hide back to top button
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTop.classList.remove("hidden");
+        } else {
+          backToTop.classList.add("hidden");
+        }
+      });
+
+      // Scroll to top when the button is clicked
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
         });
       });
     </script>

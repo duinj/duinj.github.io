@@ -81,6 +81,16 @@
     >
       <h2 class="text-2xl sm:text-4xl">Contribute</h2>
     </section>
+    <section
+      id="signupConfirmation"
+      class="min-h-screen flex items-center justify-center hidden"
+    >
+      <div class="text-center">
+        <h2 class="text-2xl sm:text-4xl mb-4">Thank You!</h2>
+        <p class="text-lg sm:text-xl">Your signup has been confirmed.</p>
+      </div>
+    </section>
+
     <div class="fixed bottom-4 left-0 right-0 flex justify-center">
       <button
         id="backToTop"
@@ -90,10 +100,10 @@
         ↑
       </button>
     </div>
-
     <script>
       const themeToggle = document.getElementById("themeToggle");
       const html = document.documentElement;
+      const backToTop = document.getElementById("backToTop");
 
       themeToggle.addEventListener("click", () => {
         html.classList.toggle("dark");
@@ -102,14 +112,52 @@
           : "Dark";
       });
 
+      // Function to show all sections
+      function showAllSections() {
+        document.querySelectorAll("section").forEach((section) => {
+          section.classList.remove("hidden");
+        });
+      }
+
+      // Function to scroll to a specific section
+      function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+
+      // Handle navigation clicks
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth",
-          });
+          const sectionId = this.getAttribute("href").substring(1);
+          showAllSections();
+          scrollToSection(sectionId);
+          history.pushState(null, "", `#${sectionId}`);
         });
       });
+
+      // Handle initial page load and hash changes
+      function handleHashChange() {
+        const hash = window.location.hash.substring(1);
+        if (hash === "signupConfirmation") {
+          document.querySelectorAll("section").forEach((section) => {
+            section.classList.add("hidden");
+          });
+          document
+            .getElementById("signupConfirmation")
+            .classList.remove("hidden");
+        } else {
+          showAllSections();
+          if (hash) {
+            scrollToSection(hash);
+          }
+        }
+      }
+
+      window.addEventListener("load", handleHashChange);
+      window.addEventListener("hashchange", handleHashChange);
 
       // Show/hide back to top button
       window.addEventListener("scroll", () => {

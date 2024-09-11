@@ -83,11 +83,18 @@
     </section>
     <section
       id="signupConfirmation"
-      class="min-h-screen flex items-center justify-center hidden"
+      class="fixed top-0 left-0 w-full h-full flex items-center justify-center hidden confirmation-section"
+      style="z-index: 9999"
     >
-      <div class="text-center">
+      <div class="text-center bg-light-bg dark:bg-dark-bg p-8 rounded-lg">
         <h2 class="text-2xl sm:text-4xl mb-4">Thank You!</h2>
-        <p class="text-lg sm:text-xl">Your signup has been confirmed.</p>
+        <p class="text-lg sm:text-xl mb-6">Your signup has been confirmed.</p>
+        <button
+          id="backToMain"
+          class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
+        >
+          Back to Main Page
+        </button>
       </div>
     </section>
 
@@ -114,9 +121,20 @@
 
       // Function to show all sections
       function showAllSections() {
-        document.querySelectorAll("section").forEach((section) => {
-          section.classList.remove("hidden");
-        });
+        document
+          .querySelectorAll("section:not(.confirmation-section)")
+          .forEach((section) => {
+            section.classList.remove("hidden");
+          });
+      }
+
+      // Function to hide all sections except the confirmation section
+      function hideAllSections() {
+        document
+          .querySelectorAll("section:not(.confirmation-section)")
+          .forEach((section) => {
+            section.classList.add("hidden");
+          });
       }
 
       // Function to scroll to a specific section
@@ -138,20 +156,51 @@
         });
       });
 
-      // Handle initial page load and hash changes
-      function handleHashChange() {
-        const hash = window.location.hash.substring(1);
-        if (hash === "signupConfirmation") {
-          document.querySelectorAll("section").forEach((section) => {
+      function showAllMainSections() {
+        document
+          .querySelectorAll("section:not(.confirmation-section)")
+          .forEach((section) => {
+            section.classList.remove("hidden");
+          });
+      }
+
+      // Function to hide all main sections
+      function hideAllMainSections() {
+        document
+          .querySelectorAll("section:not(.confirmation-section)")
+          .forEach((section) => {
             section.classList.add("hidden");
           });
-          document
-            .getElementById("signupConfirmation")
-            .classList.remove("hidden");
+      }
+      function backToMainPage() {
+        window.location.hash = "";
+        handleHashChange();
+      }
+
+      // Event listener for the back to main page button
+      document
+        .getElementById("backToMain")
+        .addEventListener("click", backToMainPage);
+
+      // Modify the handleHashChange function to include this new behavior
+      function handleHashChange() {
+        const hash = window.location.hash.substring(1);
+        const confirmationSection =
+          document.getElementById("signupConfirmation");
+
+        if (hash === "signupConfirmation") {
+          hideAllMainSections();
+          confirmationSection.classList.remove("hidden");
+          document.body.style.overflow = "hidden"; // Prevent scrolling
         } else {
-          showAllSections();
+          showAllMainSections();
+          confirmationSection.classList.add("hidden");
+          document.body.style.overflow = ""; // Allow scrolling
           if (hash) {
             scrollToSection(hash);
+          } else {
+            // If no hash, scroll to top
+            window.scrollTo(0, 0);
           }
         }
       }
@@ -174,6 +223,17 @@
           top: 0,
           behavior: "smooth",
         });
+      });
+
+      // Prevent default behavior for links to #signupConfirmation
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.tagName === "A" &&
+          e.target.getAttribute("href") === "#signupConfirmation"
+        ) {
+          e.preventDefault();
+          window.location.hash = "signupConfirmation";
+        }
       });
     </script>
   </body>

@@ -58,7 +58,7 @@
         >
           <a href="#about" class="hover:underline">About</a>
           <a href="#download" class="hover:underline">Download</a>
-          <a href="#contribute" class="hover:underline">Contribute</a>
+          <a href="#leaderboard" class="hover:underline">Leaderboard</a>
           <button id="themeToggle" class="hover:underline">Light</button>
         </div>
       </nav>
@@ -76,10 +76,13 @@
     </section>
 
     <section
-      id="contribute"
-      class="min-h-screen flex items-center justify-center"
+      id="leaderboard"
+      class="min-h-screen flex flex-col items-center justify-start py-12"
     >
-      <h2 class="text-2xl sm:text-4xl">Contribute</h2>
+      <h2 class="text-2xl sm:text-4xl mb-8">Leaderboard</h2>
+      <div id="leaderboardContent" class="w-full max-w-2xl">
+        <!-- Leaderboard content will be inserted here -->
+      </div>
     </section>
     <section
       id="signupConfirmation"
@@ -235,6 +238,57 @@
           window.location.hash = "signupConfirmation";
         }
       });
+
+      // Fetch and display leaderboard data
+      async function fetchLeaderboard() {
+        try {
+          const response = await fetch(
+            "https://eatelo-middlman.onrender.com/restaurants"
+          );
+          const data = await response.json();
+          displayLeaderboard(data);
+        } catch (error) {
+          console.error("Error fetching leaderboard:", error);
+        }
+      }
+
+      function displayLeaderboard(restaurants) {
+        const leaderboardContent =
+          document.getElementById("leaderboardContent");
+        leaderboardContent.innerHTML = `
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg">
+                <th class="p-2">Rank</th>
+                <th class="p-2">Name</th>
+                <th class="p-2">City</th>
+                <th class="p-2">Elo</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${restaurants
+                .map(
+                  (restaurant, index) => `
+                <tr class="${
+                  index % 2 === 0
+                    ? "bg-light-bg dark:bg-dark-bg"
+                    : "bg-gray-100 dark:bg-gray-800"
+                }">
+                  <td class="p-2">${index + 1}</td>
+                  <td class="p-2">${restaurant.restaurant_name}</td>
+                  <td class="p-2">${restaurant.city}</td>
+                  <td class="p-2">${restaurant.elo}</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        `;
+      }
+
+      // Call fetchLeaderboard when the page loads
+      window.addEventListener("load", fetchLeaderboard);
     </script>
   </body>
 </html>

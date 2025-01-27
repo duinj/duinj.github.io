@@ -65,8 +65,17 @@
       </nav>
     </div>
 
-    <section id="about" class="min-h-screen flex items-center justify-center">
+    <section
+      id="about"
+      class="min-h-screen flex flex-col items-center justify-center space-y-4"
+    >
       <h2 class="text-2xl sm:text-4xl">About</h2>
+      <button
+        id="privacyPolicyBtn"
+        class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
+      >
+        Privacy Policy
+      </button>
     </section>
 
     <section
@@ -174,6 +183,98 @@
       </div>
     </section>
 
+    <section
+      id="privacyPolicy"
+      class="fixed top-0 left-0 w-full h-full flex items-center justify-center hidden confirmation-section overflow-y-auto"
+      style="z-index: 9999"
+    >
+      <div
+        class="bg-light-bg dark:bg-dark-bg p-8 rounded-lg max-w-4xl mx-4 my-8"
+      >
+        <h2 class="text-2xl sm:text-4xl mb-8 text-center">Privacy Policy</h2>
+        <div class="space-y-6 text-sm">
+          <p class="text-right">Last Updated: January 27, 2025</p>
+
+          <div>
+            <p>
+              Thank you for using EatElo! We are committed to protecting your
+              privacy and being transparent about how we handle your data. This
+              policy explains what information we collect, how we use it, and
+              your rights regarding that information.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl mb-2">Information We Collect</h3>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Email Address:</strong> Required for account
+                authentication and security.
+              </li>
+              <li>
+                <strong>User Name (Optional):</strong> Used as a nickname within
+                the app for future features like private leaderboards.
+              </li>
+              <li>
+                <strong>Restaurant Visits:</strong> Data about restaurant
+                visits, including names, dates, and notes.
+              </li>
+              <li>
+                <strong>Images:</strong> Optional uploads for verification and
+                experience enhancement.
+              </li>
+              <li>
+                <strong>Comparisons:</strong> Data about restaurant comparisons
+                for Elo rating calculations.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl mb-2">How We Use Your Information</h3>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Account Authentication</li>
+              <li>App Functionality</li>
+              <li>Future Features</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl mb-2">What We Don't Do</h3>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>No Marketing</li>
+              <li>No Tracking</li>
+              <li>No Data Sharing</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl mb-2">Backend Hosting</h3>
+            <p>Our app's backend is hosted on Supabase.</p>
+          </div>
+
+          <div>
+            <h3 class="text-xl mb-2">Contact Us</h3>
+            <p>
+              For questions or concerns about this privacy policy, contact us
+              at:
+              <a href="mailto:julius.duin@gmail.com" class="underline"
+                >julius.duin@gmail.com</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            id="backToMainFromPrivacy"
+            class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
+          >
+            Back to Main Page
+          </button>
+        </div>
+      </div>
+    </section>
+
     <div class="fixed bottom-4 left-0 right-0 flex justify-center">
       <button
         id="backToTop"
@@ -264,21 +365,31 @@
         const confirmationSection =
           document.getElementById("signupConfirmation");
         const passwordResetSection = document.getElementById("passwordReset");
+        const privacyPolicySection = document.getElementById("privacyPolicy");
 
         if (hash === "signupConfirmation") {
           hideAllMainSections();
           confirmationSection.classList.remove("hidden");
           passwordResetSection.classList.add("hidden");
+          privacyPolicySection.classList.add("hidden");
           document.body.style.overflow = "hidden"; // Prevent scrolling
         } else if (hash === "passwordReset") {
           hideAllMainSections();
           confirmationSection.classList.add("hidden");
           passwordResetSection.classList.remove("hidden");
+          privacyPolicySection.classList.add("hidden");
+          document.body.style.overflow = "hidden";
+        } else if (hash === "privacyPolicy") {
+          hideAllMainSections();
+          confirmationSection.classList.add("hidden");
+          passwordResetSection.classList.add("hidden");
+          privacyPolicySection.classList.remove("hidden");
           document.body.style.overflow = "hidden";
         } else {
           showAllMainSections();
           confirmationSection.classList.add("hidden");
           passwordResetSection.classList.add("hidden");
+          privacyPolicySection.classList.add("hidden");
           document.body.style.overflow = ""; // Allow scrolling
           if (hash) {
             scrollToSection(hash);
@@ -500,6 +611,16 @@
 
       document
         .getElementById("backToMainFromReset")
+        .addEventListener("click", backToMainPage);
+
+      document
+        .getElementById("privacyPolicyBtn")
+        .addEventListener("click", () => {
+          window.location.hash = "privacyPolicy";
+        });
+
+      document
+        .getElementById("backToMainFromPrivacy")
         .addEventListener("click", backToMainPage);
     </script>
   </body>

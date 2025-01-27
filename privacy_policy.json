@@ -1,0 +1,86 @@
+{
+  "privacyPolicy": {
+    "lastUpdated": "January 26, 2025",
+    "sections": [
+      {
+        "title": "1. Data We Collect and How We Use It",
+        "content": "We collect and process the following information:",
+        "subsections": [
+          {
+            "title": "1.1 Account Information",
+            "content": [
+              "Email address: Required for account creation and authentication",
+              "Username: Optional identifier for your account (can be pseudonymous)"
+            ]
+          },
+          {
+            "title": "1.2 Usage Data",
+            "content": [
+              "Restaurant visits: Records of restaurants you've visited",
+              "Restaurant comparisons: Your win/lose/draw ratings between restaurants",
+              "User ID: An internal identifier to process your comparisons and visits"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "2. How We Use Your Data",
+        "content": [
+          "To provide and maintain our service",
+          "To calculate restaurant Elo ratings",
+          "To generate personalized restaurant leaderboards",
+          "To authenticate your account",
+          "To communicate important service-related notices"
+        ]
+      },
+      {
+        "title": "3. Data Storage and Security",
+        "content": [
+          "All data is stored securely on [specify hosting service/location]",
+          "We implement industry-standard security measures to protect your information",
+          "We do not sell or share your personal data with third parties"
+        ]
+      },
+      {
+        "title": "4. Third-Party Services",
+        "content": [
+          "We use Google Places API to provide restaurant information",
+          "Please refer to Google's privacy policy for information about their data practices"
+        ]
+      },
+      {
+        "title": "5. Your Rights",
+        "content": [
+          "You have the right to:",
+          "Access your personal data",
+          "Request correction of your data",
+          "Request deletion of your account and associated data",
+          "Export your data",
+          "Opt-out of non-essential communications"
+        ]
+      },
+      {
+        "title": "6. Data Retention",
+        "content": [
+          "Account information is retained until you request deletion",
+          "Restaurant visits and comparisons remain in our system (anonymized) even after account deletion to maintain rating integrity"
+        ]
+      },
+      {
+        "title": "7. Cookies and Tracking",
+        "content": [
+          "We use essential cookies for authentication",
+          "No third-party tracking cookies are used"
+        ]
+      },
+      {
+        "title": "8. Changes to Privacy Policy",
+        "content": "We reserve the right to update this privacy policy. Users will be notified of significant changes."
+      },
+      {
+        "title": "9. Contact Information",
+        "content": "For privacy-related questions, contact us at: [Your Contact Information]"
+      }
+    ]
+  }
+}

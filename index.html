@@ -76,6 +76,12 @@
       >
         Privacy Policy
       </button>
+      <button
+        id="supportBtn"
+        class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
+      >
+        Support
+      </button>
     </section>
 
     <section
@@ -275,6 +281,31 @@
       </div>
     </section>
 
+    <section
+      id="support"
+      class="fixed top-0 left-0 w-full h-full flex items-center justify-center hidden confirmation-section"
+      style="z-index: 9999"
+    >
+      <div
+        class="text-center bg-light-bg dark:bg-dark-bg p-8 rounded-lg max-w-2xl mx-4"
+      >
+        <h2 class="text-2xl sm:text-4xl mb-8">Support</h2>
+        <p class="mb-6">
+          Hi I am Julius, I am the creator and maintainer of this app, if you
+          have questions dont hesitate to contact me via email:
+          <a href="mailto:julius.duin@gmail.com" class="underline"
+            >julius.duin@gmail.com</a
+          >
+        </p>
+        <button
+          id="backToMainFromSupport"
+          class="bg-light-text dark:bg-dark-text text-light-bg dark:text-dark-bg px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
+        >
+          Back to Main Page
+        </button>
+      </div>
+    </section>
+
     <div class="fixed bottom-4 left-0 right-0 flex justify-center">
       <button
         id="backToTop"
@@ -366,30 +397,42 @@
           document.getElementById("signupConfirmation");
         const passwordResetSection = document.getElementById("passwordReset");
         const privacyPolicySection = document.getElementById("privacyPolicy");
+        const supportSection = document.getElementById("support");
 
         if (hash === "signupConfirmation") {
           hideAllMainSections();
           confirmationSection.classList.remove("hidden");
           passwordResetSection.classList.add("hidden");
           privacyPolicySection.classList.add("hidden");
+          supportSection.classList.add("hidden");
           document.body.style.overflow = "hidden"; // Prevent scrolling
         } else if (hash === "passwordReset") {
           hideAllMainSections();
           confirmationSection.classList.add("hidden");
           passwordResetSection.classList.remove("hidden");
           privacyPolicySection.classList.add("hidden");
+          supportSection.classList.add("hidden");
           document.body.style.overflow = "hidden";
         } else if (hash === "privacyPolicy") {
           hideAllMainSections();
           confirmationSection.classList.add("hidden");
           passwordResetSection.classList.add("hidden");
           privacyPolicySection.classList.remove("hidden");
+          supportSection.classList.add("hidden");
+          document.body.style.overflow = "hidden";
+        } else if (hash === "support") {
+          hideAllMainSections();
+          confirmationSection.classList.add("hidden");
+          passwordResetSection.classList.add("hidden");
+          privacyPolicySection.classList.add("hidden");
+          supportSection.classList.remove("hidden");
           document.body.style.overflow = "hidden";
         } else {
           showAllMainSections();
           confirmationSection.classList.add("hidden");
           passwordResetSection.classList.add("hidden");
           privacyPolicySection.classList.add("hidden");
+          supportSection.classList.add("hidden");
           document.body.style.overflow = ""; // Allow scrolling
           if (hash) {
             scrollToSection(hash);
@@ -621,6 +664,14 @@
 
       document
         .getElementById("backToMainFromPrivacy")
+        .addEventListener("click", backToMainPage);
+
+      document.getElementById("supportBtn").addEventListener("click", () => {
+        window.location.hash = "support";
+      });
+
+      document
+        .getElementById("backToMainFromSupport")
         .addEventListener("click", backToMainPage);
     </script>
   </body>
